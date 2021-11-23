@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="margin: 0 0 0 0;">
+    <div>
+        <canvas id="myChart"></canvas>
+      </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
+    <script>
+        // === include 'setup' then 'config' above ===
+        //fetch
+        fetch('http://localhost:3000/ai')
+        .then(response => response.json())
+        .then(data => {
+            //console.log(data);
+            //console.log(data['15'])
+            //console.log(JSON.parse)
+            data = [data]
+            var labels = [];
+            var datalist = [];
+            /*Object.entries(data.sort(function(a, b){return a - b})[0]).map(([key, value]) => {
+                //console.log(key, value)
+                if(key != 16){
+                    labels.push(key);
+                    datalist.push(value);
+                }
+                /*labels.push(key);
+                datalist.push(value);*/
+            //})
+            /*data.forEach(element => {
+                console.log(element)
+            });*/
+            /*const labels = [
+                'January',
+                'February',
+                'March',
+                'April',
+                'May',
+                'June',
+            ];
+
+            const data = {
+                labels: labels,
+                datasets: [{
+                    label: 'My First dataset',
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: [0, 10, 5, 2, 20, 30, 45],
+                }]
+            };*/
+
+            Object.entries(data[0]).map(([key, value]) => {
+                console.log(value)
+                if(value['key'] != 16){
+                    labels.push(value['key']);
+                    datalist.push(value['value']);
+                }
+                /*labels.push(key);
+                datalist.push(value);*/
+            })
+
+            //random rgb color
+            function getRandomColor() {
+                var letters = '0123456789ABCDEF';
+                var color = '#';
+                for (var i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+
+            var color = getRandomColor();
+
+            const datadamn = {
+                labels: labels,
+                datasets: [{
+                    label: 'AI เลขเด็ด',
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: datalist,
+                },
+                /*{
+                    label: 'จากการโหวต',
+                    backgroundColor: color,
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: datalist,
+                }*/]
+            };
+
+            const config = {
+                type: 'bar',
+                data: datadamn,
+                options: {
+                    scales: {
+                        x: {
+                            stacked: true,
+                        },
+                        y: {
+                            stacked: true
+                        }
+                    }
+                }
+            };
+        
+            const myChart = new Chart(
+                document.getElementById('myChart'),
+                config
+            );
+        });
+        
+      </script>      
+</body>
+</html>
