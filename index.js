@@ -41,11 +41,14 @@ app.get('/ai', function (req, res) {
                 for (let wowindex = 0; wowindex < result1.elements[0].elements[0].elements[index].elements.length; wowindex++) {
                     //const element = array[index];
                     if (result1.elements[0].elements[0].elements[index].elements[wowindex].name == 'content:encoded') {
-                        striptags(result1.elements[0].elements[0].elements[index].elements[wowindex].elements[0].cdata).match(/[^\u0E00-\u0E7F^\d^a-z^A-z^.^(^#^/^-]\d+/g).forEach(element => {
+                        let cdata = result1.elements[0].elements[0].elements[index].elements[wowindex].elements[0].cdata;
+                        //remove text look like 17/01/65
+                        cdata = cdata.replace(/\d+\/\d+\/\d+/g, '');
+                        striptags(cdata).match(/[^\u0E00-\u0E7F^\d^a-z^A-z^.^(^#^/^-]\d+/g).forEach(element => {
                             element = element.replace(/\s/g, "")
                             if (element.length >= 2 && element.length <= 6 && element != new Date().getFullYear() && element != (new Date().getFullYear() + 543) && element.length != 4 && element != new Date().getDate() && element != new Date().getMonth() + 1 && element != (new Date().getFullYear() + 543).toString().substr(2, 2) && element != (new Date().getFullYear() + 543).toString().substr(0, 2)) {
                                 arraywow.push(element.replace(/\s/g, ""))
-                                console.log(striptags(result1.elements[0].elements[0].elements[index].elements[wowindex].elements[0].cdata))
+                                console.log(striptags(cdata))
                             }
                         });
                     }
