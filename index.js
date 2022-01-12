@@ -19,6 +19,7 @@ app.get('/ai', function (req, res) {
         .then(function (body) {
             //console.log(body);
             //get pubDate from xml
+            let test = []
             var $ = cheerio.load(body);
             var pubDate = $('pubDate').text();
             console.log(pubDate);
@@ -46,11 +47,16 @@ app.get('/ai', function (req, res) {
                         cdata = cdata.replace(/\d+\/\d+\/\d+/g, '');
                         //array month thai
                         let month = ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'];
-                        //detect thai month in cdata and console with 5 before and after month
+                        //detect thai month in cdata and console with 2 before and after month
                         for (let index = 0; index < month.length; index++) {
                             if (cdata.includes(month[index])) {
-                                console.log(cdata.substring(cdata.indexOf(month[index]) - 5, cdata.indexOf(month[index]) + 5))
+                                console.log(cdata.substring(cdata.indexOf(month[index]) - 2, cdata.indexOf(month[index]) + 2));
+                                test.push(cdata.substring(cdata.indexOf(month[index]) - 2, cdata.indexOf(month[index]) + 2));
                             }
+                        }
+                        //remove text from cdata by test array
+                        for (let index = 0; index < test.length; index++) {
+                            cdata = cdata.replace(test[index], '');
                         }
                         striptags(cdata).match(/[^\u0E00-\u0E7F^\d^a-z^A-z^.^(^#^/^-]\d+/g).forEach(element => {
                             element = element.replace(/\s/g, "")
@@ -80,6 +86,7 @@ app.get('/ai', function (req, res) {
             console.log(realcounts)
             console.log(JSON.stringify(counts));
             console.log(counts)
+            console.log(test)
             res.send(JSON.stringify(realcounts));
         });
         //get number from string and put it in array
