@@ -44,6 +44,14 @@ app.get('/ai', function (req, res) {
                         let cdata = result1.elements[0].elements[0].elements[index].elements[wowindex].elements[0].cdata;
                         //remove text look like 17/01/65
                         cdata = cdata.replace(/\d+\/\d+\/\d+/g, '');
+                        //array month thai
+                        let month = ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'];
+                        //detect thai month in cdata and console with 5 before and after month
+                        for (let index = 0; index < month.length; index++) {
+                            if (cdata.includes(month[index])) {
+                                console.log(cdata.substring(cdata.indexOf(month[index]) - 5, cdata.indexOf(month[index]) + 5))
+                            }
+                        }
                         striptags(cdata).match(/[^\u0E00-\u0E7F^\d^a-z^A-z^.^(^#^/^-]\d+/g).forEach(element => {
                             element = element.replace(/\s/g, "")
                             if (element.length >= 2 && element.length <= 6 && element != new Date().getFullYear() && element != (new Date().getFullYear() + 543) && element.length != 4 && element != new Date().getDate() && element != new Date().getMonth() + 1 && element != (new Date().getFullYear() + 543).toString().substr(2, 2) && element != (new Date().getFullYear() + 543).toString().substr(0, 2)) {
