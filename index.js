@@ -3,6 +3,7 @@ var cheerio = require('cheerio');
 var convert = require('xml-js');
 var striptags = require('striptags');
 var express = require('express');
+var fs = require('fs');
 
 //expressjs setup
 var app = express();
@@ -87,7 +88,13 @@ app.get('/ai', function (req, res) {
             console.log(JSON.stringify(counts));
             console.log(counts)
             console.log(test)
-            res.send(JSON.stringify(realcounts));
+            if(req.query.want != undefined){
+                //get realcounts only top 10
+                let realcounts2 = realcounts.slice(0, 10);
+                res.send(JSON.stringify(realcounts2));
+            }else{
+                res.send(JSON.stringify(realcounts));
+            }
         });
         //get number from string and put it in array
         /*var str = "foo35bar5jhkj88";
@@ -100,7 +107,26 @@ app.get('/ai', function (req, res) {
 
 //app get html
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/index.html');
+    if(req.query.want != undefined){
+        //copy index.html and change name to indextop10.html
+        fs.copyFile('./index.html', './indextop10.html', (err) => {
+            if (err) throw err;
+            console.log('source was copied to destination');
+        });
+        //edit indextop10.html change https://lottsanook-chitai-production.up.railway.app/ai to https://lottsanook-chitai-production.up.railway.app/ai?want=true
+        fs.readFile('./indextop10.html', 'utf8', function (err, data) {
+            if (err) throw err;
+            var result = data.replace(/https:\/\/lottsanook-chitai-production.up.railway.app\/ai/g, 'https://lottsanook-chitai-production.up.railway.app/ai?want=true');
+            fs.writeFile('./indextop10.html', result, 'utf8', function (err) {
+                if (err) throw err;
+                console.log('It\'s saved!');
+            });
+        });
+        //send indextop10.html
+        res.sendFile(__dirname + '/indextop10.html');
+    }else{
+        res.sendFile(__dirname + '/index.html');
+    }
 })
 
 //app listen
