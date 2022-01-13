@@ -109,10 +109,10 @@ app.get('/ai', function (req, res) {
 app.get('/', function (req, res) {
     if(req.query.want != undefined){
         //copy index.html and change name to indextop10.html
-        fs.copyFile('./index.html', './indextop10.html', (err) => {
+        /*fs.copyFile('./index.html', './indextop10.html', (err) => {
             if (err) throw err;
             console.log('source was copied to destination');
-        });
+        });*/
         //edit indextop10.html change https://lottsanook-chitai-production.up.railway.app/ai to https://lottsanook-chitai-production.up.railway.app/ai?want=true
         /*fs.readFile('./indextop10.html', 'utf8', function (err, data) {
             if (err) throw err;
