@@ -114,14 +114,14 @@ app.get('/', function (req, res) {
             console.log('source was copied to destination');
         });
         //edit indextop10.html change https://lottsanook-chitai-production.up.railway.app/ai to https://lottsanook-chitai-production.up.railway.app/ai?want=true
-        fs.readFile('./indextop10.html', 'utf8', function (err, data) {
+        /*fs.readFile('./indextop10.html', 'utf8', function (err, data) {
             if (err) throw err;
             var result = data.replace('https://lottsanook-chitai-production.up.railway.app/ai', 'https://lottsanook-chitai-production.up.railway.app/ai?want=true');
             fs.writeFile('./indextop10.html', result, 'utf8', function (err) {
                 if (err) throw err;
                 console.log('It\'s saved!');
             });
-        });
+        });*/
         //send indextop10.html
         res.sendFile(__dirname + '/indextop10.html');
     }else{
