@@ -83,6 +83,7 @@
             fetch("https://anywhere.pwisetthon.com/https://lotto.teamquadb.in.th/lottnumberapi.php", requestOptions)
                 .then(response => response.json())
                 .then(result => {
+                    console.log(result)
                     //loop json
                     Object.entries(result).map(([lottCount, numberbuy]) => {
                         //if numberbuy['value'] = seconddata key['value'] change seconddata value['value'] = numberbuy['value']
@@ -92,6 +93,7 @@
                             }
                         })
                     })
+                    console.log('done')
                 })
                 .catch(error => console.log('error', error));
 
