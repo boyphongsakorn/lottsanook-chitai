@@ -67,6 +67,7 @@
             })
 
             let seconddata = data;
+            let datalisttwo = [];
 
             //change all value of key to 0
             Object.entries(seconddata[0]).map(([key, value]) => {
@@ -98,6 +99,9 @@
                                 value['value'] = valuetwo;
                             }
                         })
+                    })
+                    Object.entries(seconddata[0]).map(([key, value]) => {
+                        datalisttwo.push(value['value']);
                     })
                     console.log('done')
                 })
