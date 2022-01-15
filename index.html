@@ -104,7 +104,7 @@
                         let valuetwo = value['value']
                         //if numberbuy['value'] = seconddata key['value'] change seconddata value['value'] = numberbuy['value']
                         Object.entries(seconddata[0]).map(([key, value]) => {
-                            if(key['value'] == keytwo){
+                            if(value['key'] == keytwo){
                                 console.log(valuetwo)
                                 value['value'] = valuetwo;
                             }
