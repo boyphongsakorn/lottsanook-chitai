@@ -100,20 +100,18 @@
                     console.log(result[0])
                     //loop json
                     Object.entries(result[0]).map(([key, value]) => {
-                        let keytwo = key['value']
+                        let keytwo = value['key']
                         let valuetwo = value['value']
                         console.log(keytwo)
                         console.log(valuetwo)
-                        console.log(key['value'])
-                        console.log(value['value'])
                         //if numberbuy['value'] = seconddata key['value'] change seconddata value['value'] = numberbuy['value']
-                        /*Object.entries(seconddata[0]).map(([key, value]) => {
+                        Object.entries(seconddata[0]).map(([key, value]) => {
                             if(key['value'] == keytwo){
                                 console.log(key['value'])
                                 console.log(keytwo)
                                 value['value'] = valuetwo;
                             }
-                        })*/
+                        })
                     })
                     Object.entries(seconddata[0]).map(([key, value]) => {
                         datalisttwo.push(value['value']);
