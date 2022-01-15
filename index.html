@@ -13,6 +13,16 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
     <script>
+        //random rgb color
+        function getRandomColor() {
+                var letters = '0123456789ABCDEF';
+                var color = '#';
+                for (var i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+
         // === include 'setup' then 'config' above ===
         //fetch
         fetch('https://lottsanook-chitai-production.up.railway.app/ai')
@@ -109,16 +119,6 @@
 
             console.log(seconddata)
 
-            //random rgb color
-            function getRandomColor() {
-                var letters = '0123456789ABCDEF';
-                var color = '#';
-                for (var i = 0; i < 6; i++) {
-                    color += letters[Math.floor(Math.random() * 16)];
-                }
-                return color;
-            }
-
             var color = getRandomColor();
 
             const datadamn = {
@@ -133,7 +133,7 @@
                     label: 'Line@ จะถูกไหมนะ',
                     backgroundColor: color,
                     borderColor: 'rgb(255, 99, 132)',
-                    data: seconddata,
+                    data: datalisttwo,
                 }]
             };
 
