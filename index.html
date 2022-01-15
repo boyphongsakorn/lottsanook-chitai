@@ -87,13 +87,15 @@
                     result = [result]
                     console.log(result)
                     //loop json
-                    Object.entries(result[0]).map(([numberbuy, lottCount]) => {
-                        console.log(numberbuy['value'])
-                        console.log(lottCount['value'])
+                    Object.entries(result[0]).map(([key, value]) => {
+                        let keytwo = key['value']
+                        let valuetwo = value['value']
+                        //console.log(numberbuy['value'])
+                        //console.log(lottCount['value'])
                         //if numberbuy['value'] = seconddata key['value'] change seconddata value['value'] = numberbuy['value']
                         Object.entries(seconddata[0]).map(([key, value]) => {
-                            if(key['value'] == numberbuy['value']){
-                                value['value'] = lottCount['value'];
+                            if(key['value'] == keytwo){
+                                value['value'] = valuetwo;
                             }
                         })
                     })
