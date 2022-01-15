@@ -117,59 +117,61 @@
                         datalisttwo.push(value['value']);
                         console.log(value['value'])
                     })
-                    console.log('done')
+                    console.log('done step 1')
+
+                    var color = getRandomColor();
+
+                    const datadamn = {
+                        labels: labels,
+                        datasets: [{
+                            label: 'AI เลขเด็ด',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: datalist,
+                        },
+                        {
+                            label: 'Line@ จะถูกไหมนะ',
+                            backgroundColor: color,
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: datalisttwo,
+                        }]
+                    };
+
+                    const config = {
+                        type: 'bar',
+                        data: datadamn,
+                        options: {
+                            scales: {
+                                x: {
+                                    stacked: true,
+                                },
+                                y: {
+                                    stacked: true
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    labels: {
+                                        // This more specific font property overrides the global property
+                                        font: {
+                                            size: 25
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    };
+                
+                    const myChart = new Chart(
+                        document.getElementById('myChart'),
+                        config
+                    );
+
+                    console.log('done step 2')
                 })
                 .catch(error => console.log('error', error));
 
             console.log(seconddata)
-
-            var color = getRandomColor();
-
-            const datadamn = {
-                labels: labels,
-                datasets: [{
-                    label: 'AI เลขเด็ด',
-                    backgroundColor: 'rgb(255, 99, 132)',
-                    borderColor: 'rgb(255, 99, 132)',
-                    data: datalist,
-                },
-                {
-                    label: 'Line@ จะถูกไหมนะ',
-                    backgroundColor: color,
-                    borderColor: 'rgb(255, 99, 132)',
-                    data: datalisttwo,
-                }]
-            };
-
-            const config = {
-                type: 'bar',
-                data: datadamn,
-                options: {
-                    scales: {
-                        x: {
-                            stacked: true,
-                        },
-                        y: {
-                            stacked: true
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            labels: {
-                                // This more specific font property overrides the global property
-                                font: {
-                                    size: 25
-                                }
-                            }
-                        }
-                    }
-                }
-            };
-        
-            const myChart = new Chart(
-                document.getElementById('myChart'),
-                config
-            );
         });
         
       </script>      
