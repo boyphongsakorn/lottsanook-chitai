@@ -86,6 +86,8 @@
                     result = [result]
                     //loop json
                     Object.entries(result[0]).map(([lottCount, numberbuy]) => {
+                        console.log(numberbuy['value'])
+                        console.log(lottCount['value'])
                         //if numberbuy['value'] = seconddata key['value'] change seconddata value['value'] = numberbuy['value']
                         Object.entries(seconddata[0]).map(([key, value]) => {
                             if(key['value'] == numberbuy['value']){
