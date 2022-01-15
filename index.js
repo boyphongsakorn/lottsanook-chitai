@@ -106,22 +106,22 @@ app.get('/ai', function (req, res) {
 })
 
 //app get html
-app.get('/', function (req, res) {
+app.get('/', async function (req, res) {
     if(req.query.want != undefined){
         //copy index.html and change name to indextop10.html
-        /*fs.copyFile('./index.html', './indextop10.html', (err) => {
+        fs.copyFileSync('./index.html', './indextop10.html', (err) => {
             if (err) throw err;
             console.log('source was copied to destination');
-        });*/
+        });
         //edit indextop10.html change https://lottsanook-chitai-production.up.railway.app/ai to https://lottsanook-chitai-production.up.railway.app/ai?want=true
-        /*fs.readFile('./indextop10.html', 'utf8', function (err, data) {
+        fs.readFileSync('./indextop10.html', 'utf8', await function (err, data) {
             if (err) throw err;
             var result = data.replace('https://lottsanook-chitai-production.up.railway.app/ai', 'https://lottsanook-chitai-production.up.railway.app/ai?want=true');
-            fs.writeFile('./indextop10.html', result, 'utf8', function (err) {
+            fs.writeFileSync('./indextop10.html', result, 'utf8', function (err) {
                 if (err) throw err;
                 console.log('It\'s saved!');
             });
-        });*/
+        });
         //send indextop10.html
         res.sendFile(__dirname + '/indextop10.html');
     }else{
