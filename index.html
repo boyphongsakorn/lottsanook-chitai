@@ -66,6 +66,25 @@
                 datalist.push(value);*/
             })
 
+            let seconddata = data;
+
+            //change all value of key to 0
+            Object.entries(seconddata[0]).map(([key, value]) => {
+                value['value'] = 0;
+            })
+
+            console.log(seconddata)
+
+            var requestOptions = {
+                method: 'GET',
+                redirect: 'follow'
+            };
+
+            fetch("https://lotto.teamquadb.in.th/lottnumberapi.php", requestOptions)
+                .then(response => response.text())
+                .then(result => console.log(result))
+                .catch(error => console.log('error', error));
+
             //random rgb color
             function getRandomColor() {
                 var letters = '0123456789ABCDEF';
@@ -86,12 +105,12 @@
                     borderColor: 'rgb(255, 99, 132)',
                     data: datalist,
                 },
-                /*{
-                    label: 'จากการโหวต',
+                {
+                    label: 'Line@ จะถูกไหมนะ',
                     backgroundColor: color,
                     borderColor: 'rgb(255, 99, 132)',
-                    data: datalist,
-                }*/]
+                    data: seconddata,
+                }]
             };
 
             const config = {
