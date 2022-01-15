@@ -80,10 +80,22 @@
                 redirect: 'follow'
             };
 
-            fetch("https://lotto.teamquadb.in.th/lottnumberapi.php", requestOptions)
-                .then(response => response.text())
-                .then(result => console.log(result))
+            fetch("https://anywhere.pwisetthon.com/https://lotto.teamquadb.in.th/lottnumberapi.php", requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    //loop json
+                    Object.entries(result).map(([lottCount, numberbuy]) => {
+                        //if numberbuy['value'] = seconddata key['value'] change seconddata value['value'] = numberbuy['value']
+                        Object.entries(seconddata[0]).map(([key, value]) => {
+                            if(key['value'] == numberbuy['value']){
+                                value['value'] = lottCount['value'];
+                            }
+                        })
+                    })
+                })
                 .catch(error => console.log('error', error));
+
+            console.log(seconddata)
 
             //random rgb color
             function getRandomColor() {
