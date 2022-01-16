@@ -13,6 +13,16 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
     <script>
+        //random rgb color
+        function getRandomColor() {
+                var letters = '0123456789ABCDEF';
+                var color = '#';
+                for (var i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+
         // === include 'setup' then 'config' above ===
         //fetch
         fetch('https://lottsanook-chitai-production.up.railway.app/ai?want=true')
@@ -66,63 +76,98 @@
                 datalist.push(value);*/
             })
 
-            //random rgb color
-            function getRandomColor() {
-                var letters = '0123456789ABCDEF';
-                var color = '#';
-                for (var i = 0; i < 6; i++) {
-                    color += letters[Math.floor(Math.random() * 16)];
-                }
-                return color;
-            }
+            let seconddata = data;
+            let datalisttwo = [];
 
-            var color = getRandomColor();
+            //change all value of key to 0
+            Object.entries(seconddata[0]).map(([key, value]) => {
+                value['value'] = 0;
+            })
 
-            const datadamn = {
-                labels: labels,
-                datasets: [{
-                    label: 'AI เลขเด็ด',
-                    backgroundColor: 'rgb(255, 99, 132)',
-                    borderColor: 'rgb(255, 99, 132)',
-                    data: datalist,
-                },
-                /*{
-                    label: 'จากการโหวต',
-                    backgroundColor: color,
-                    borderColor: 'rgb(255, 99, 132)',
-                    data: datalist,
-                }*/]
+            console.log(seconddata)
+
+            var requestOptions = {
+                method: 'GET',
+                redirect: 'follow'
             };
 
-            const config = {
-                type: 'bar',
-                data: datadamn,
-                options: {
-                    scales: {
-                        x: {
-                            stacked: true,
+            fetch("https://anywhere.pwisetthon.com/https://lotto.teamquadb.in.th/lottnumberapi.php", requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result)
+                    result = [result]
+                    console.log(result)
+                    console.log(result[0])
+                    //loop json
+                    Object.entries(result[0]).map(([key, value]) => {
+                        let keytwo = value['key']
+                        let valuetwo = value['value']
+                        //if numberbuy['value'] = seconddata key['value'] change seconddata value['value'] = numberbuy['value']
+                        Object.entries(seconddata[0]).map(([key, value]) => {
+                            if(value['key'] == keytwo){
+                                value['value'] = valuetwo;
+                            }
+                            //datalisttwo.push(valuetwo);
+                        })
+                    })
+                    Object.entries(seconddata[0]).map(([key, value]) => {
+                        datalisttwo.push(value['value']);
+                    })
+                    console.log('done step 1')
+
+                    var color = getRandomColor();
+
+                    const datadamn = {
+                        labels: labels,
+                        datasets: [{
+                            label: 'AI เลขเด็ด',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: datalist,
                         },
-                        y: {
-                            stacked: true
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            labels: {
-                                // This more specific font property overrides the global property
-                                font: {
-                                    size: 25
+                        {
+                            label: 'Line@ จะถูกไหมนะ',
+                            backgroundColor: color,
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: datalisttwo,
+                        }]
+                    };
+
+                    const config = {
+                        type: 'bar',
+                        data: datadamn,
+                        options: {
+                            scales: {
+                                x: {
+                                    stacked: true,
+                                },
+                                y: {
+                                    stacked: true
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    labels: {
+                                        // This more specific font property overrides the global property
+                                        font: {
+                                            size: 25
+                                        }
+                                    }
                                 }
                             }
                         }
-                    }
-                }
-            };
-        
-            const myChart = new Chart(
-                document.getElementById('myChart'),
-                config
-            );
+                    };
+                
+                    const myChart = new Chart(
+                        document.getElementById('myChart'),
+                        config
+                    );
+
+                    console.log('done step 2')
+                })
+                .catch(error => console.log('error', error));
+
+            console.log(seconddata)
         });
         
       </script>      

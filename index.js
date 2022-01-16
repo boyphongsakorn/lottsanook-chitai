@@ -109,7 +109,7 @@ app.get('/ai', function (req, res) {
 app.get('/', async function (req, res) {
     if(req.query.want != undefined){
         //copy index.html and change name to indextop10.html
-        fs.copyFileSync('./index.html', './indextop10.html', (err) => {
+        /*fs.copyFileSync('./index.html', './indextop10.html', (err) => {
             if (err) throw err;
             console.log('source was copied to destination');
         });
@@ -121,7 +121,7 @@ app.get('/', async function (req, res) {
                 if (err) throw err;
                 console.log('It\'s saved!');
             });
-        });
+        });*/
         //send indextop10.html
         res.sendFile(__dirname + '/indextop10.html');
     }else{
